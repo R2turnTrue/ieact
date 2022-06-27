@@ -1,0 +1,7 @@
+name: myplugin
+version: 1.0.0
+main: xyz.r2turntrue.ieact.MyPlugin
+
+commands:
+  test1:
+    description: test1
