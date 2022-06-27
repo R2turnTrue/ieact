@@ -1,6 +1,8 @@
 <div align="center">
-![](https://user-images.githubusercontent.com/46389044/175945398-7005d41a-0ab9-440d-979a-fb6a61579e8c.png?s=200&v=4)
-<h1>Ieact</h1>
+<br/>
+<img height=256 src="https://user-images.githubusercontent.com/46389044/175945398-7005d41a-0ab9-440d-979a-fb6a61579e8c.png?s=200&v=4" />
+
+# Ieact
 
 A react-like kotlin library to create an inventory ui easily
 </div>
