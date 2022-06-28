@@ -2,6 +2,7 @@ package xyz.r2turntrue.ieact.internal
 
 import com.google.common.collect.ArrayListMultimap
 import com.google.common.collect.Multimaps
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.Event
@@ -21,7 +22,11 @@ fun <P> Player.renderComponent(clazz: Class<out IeactComponent<*, *>>, props: P?
     lateinit var renderTask: BukkitTask
     fun renderInventory() {
         val rendered = component.render()
-        val renderedInventory = Bukkit.createInventory(null, rendered.size, rendered.title)
+        val renderedInventory =
+            if(System.getProperty("UNIT_TEST") == "1")
+                Bukkit.createInventory(null, rendered.size, PlainTextComponentSerializer.plainText().serialize(rendered.title))
+            else
+                Bukkit.createInventory(null, rendered.size, rendered.title)
         rendered.items.forEach { slot, stack ->
             renderedInventory.setItem(slot, stack.first)
         }
@@ -45,7 +50,7 @@ fun <P> Player.renderComponent(clazz: Class<out IeactComponent<*, *>>, props: P?
             }
         }
     }))
-    registeredListeners.put(clazz, Triple(this.uniqueId, InventoryClickEvent::class.java, listener(InventoryCloseEvent::class.java) { event ->
+    registeredListeners.put(clazz, Triple(this.uniqueId, InventoryCloseEvent::class.java, listener(InventoryCloseEvent::class.java) { event ->
         if(component.player.uniqueId == event.view.player.uniqueId) {
             component.onClose()
             registeredListeners.values().removeIf { listenerTriple -> listenerTriple.first == this.uniqueId }
