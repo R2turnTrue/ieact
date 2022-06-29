@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack
 import xyz.r2turntrue.ieact.MyPlugin
 import kotlin.test.*
 
-class InventoryTests {
+class InventoryCreationTests {
 
     lateinit var server: ServerMock
     lateinit var plugin: MyPlugin
