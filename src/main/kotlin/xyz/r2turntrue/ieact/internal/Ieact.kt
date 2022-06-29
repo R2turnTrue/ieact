@@ -36,6 +36,7 @@ fun <P> Player.renderComponent(clazz: Class<out IeactComponent<*, *>>, props: P?
     renderTask = Bukkit.getScheduler().runTaskTimer(plugin, Runnable {
         if(component.closed) {
             Bukkit.getScheduler().cancelTask(renderTask.taskId)
+            return@Runnable
         }
         renderInventory()
     }, 0, 1)
