@@ -23,3 +23,24 @@ class Test1Component(props: Any?, player: Player): IeactComponent<Any?, Any?>(pr
         }
     }
 ```
+
+```kotlin
+// A component with state
+data class Test2ComponentState(var counter: Int)
+
+class Test2Component(props: Any?, player: Player): IeactComponent<Any?, Test2ComponentState>(props, player) {
+    init {
+        state = Test2ComponentState(0)
+    }
+
+    override fun render(): IeactRendered =
+        ieact(Component.text("Hello, World!"), 9) {
+            state?.run {
+                item(x = 0, y = 0, stack = ItemStack(if(counter >= 1) Material.GOLDEN_APPLE else Material.APPLE), onClick = {
+                    player.sendMessage("TEST")
+                })
+                counter++
+            }
+        }
+}
+```
