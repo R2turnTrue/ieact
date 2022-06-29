@@ -5,3 +5,5 @@ main: xyz.r2turntrue.ieact.MyPlugin
 commands:
   test1:
     description: test1
+  test2:
+    description: test2
