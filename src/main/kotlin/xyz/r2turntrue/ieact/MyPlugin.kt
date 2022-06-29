@@ -23,6 +23,7 @@ class MyPlugin : JavaPlugin, CommandExecutor {
         println("!!! IF YOU NOT USE THIS PLUGIN FOR IEACT TEST, DELETE THIS PLUGIN!")
         println("UNITTEST: ${System.getProperty("UNIT_TEST")}")
         getCommand("test1")?.setExecutor(this)
+        getCommand("test2")?.setExecutor(this)
     }
 
     class Test1Component(props: Any?, player: Player): IeactComponent<Any?, Any?>(props, player) {
@@ -31,17 +32,36 @@ class MyPlugin : JavaPlugin, CommandExecutor {
 
         override fun render(): IeactRendered =
             ieact(theTitle, 9) {
-                item(x = 0, y = 0, stack = theStack) {
+                item(x = 0, y = 0, stack = theStack, onClick = {
                     player.sendMessage("TEST")
+                })
+            }
+    }
+
+    data class Test2ComponentState(var counter: Int)
+
+    class Test2Component(props: Any?, player: Player): IeactComponent<Any?, Test2ComponentState>(props, player) {
+        init {
+            state = Test2ComponentState(0)
+        }
+
+        override fun render(): IeactRendered =
+            ieact(Component.text("Hello, World!"), 9) {
+                state?.run {
+                    item(x = 0, y = 0, stack = ItemStack(if(counter >= 1) Material.GOLDEN_APPLE else Material.APPLE), onClick = {
+                        player.sendMessage("TEST")
+                    })
+                    counter++
                 }
             }
+
     }
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if(label.equals("test1", true)) {
-
-
             (sender as Player).renderComponent(Test1Component::class.java, null)
+        } else if(label.equals("test2", true)) {
+            (sender as Player).renderComponent(Test2Component::class.java, null)
         }
 
         return true
