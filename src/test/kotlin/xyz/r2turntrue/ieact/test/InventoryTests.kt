@@ -6,10 +6,7 @@ import net.kyori.adventure.text.Component
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import xyz.r2turntrue.ieact.MyPlugin
-import kotlin.test.AfterTest
-import kotlin.test.BeforeTest
-import kotlin.test.Test
-import kotlin.test.assertEquals
+import kotlin.test.*
 
 class InventoryTests {
 
@@ -32,6 +29,15 @@ class InventoryTests {
         val expectedTitle = "Hello, World!"
         assert(player.openInventory.getItem(0)!!.type == expectedStack.type)
         //assertEquals(expectedTitle, player.openInventory.title) // because mockbukkit doesn't implemented title of chest inventory
+    }
+
+    @Test
+    fun testInventoryUpdate() {
+        val player = server.addPlayer()
+        server.execute("test2", player)
+        assert(player.openInventory.getItem(0)!!.type == Material.APPLE)
+        server.scheduler.performOneTick()
+        assert(player.openInventory.getItem(0)!!.type == Material.GOLDEN_APPLE)
     }
 
     @AfterTest
