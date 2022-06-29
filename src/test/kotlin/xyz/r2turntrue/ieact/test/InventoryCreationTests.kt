@@ -28,6 +28,7 @@ class InventoryCreationTests {
         val expectedStack = ItemStack(Material.APPLE)
         val expectedTitle = "Hello, World!"
         assert(player.openInventory.getItem(0)!!.type == expectedStack.type)
+        player.openInventory.close()
         //assertEquals(expectedTitle, player.openInventory.title) // because mockbukkit doesn't implemented title of chest inventory
     }
 
@@ -38,6 +39,7 @@ class InventoryCreationTests {
         assert(player.openInventory.getItem(0)!!.type == Material.APPLE)
         server.scheduler.performOneTick()
         assert(player.openInventory.getItem(0)!!.type == Material.GOLDEN_APPLE)
+        player.openInventory.close()
     }
 
     @AfterTest

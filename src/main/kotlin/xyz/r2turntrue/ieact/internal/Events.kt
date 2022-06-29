@@ -56,13 +56,13 @@ fun <T : Event> listener(clazz: Class<T>, priority: EventPriority = EventPriorit
                 listenerData,
                 executor,
                 priority,
-                plugin,
+                plugin!!,
                 ignoreCancelled
             )
         )
     } else {
         clazz.handlerList.register(
-            RegisteredListener(listenerData, executor, priority, plugin, ignoreCancelled)
+            RegisteredListener(listenerData, executor, priority, plugin!!, ignoreCancelled)
         )
     }
     return listenerData

@@ -9,13 +9,14 @@ import org.bukkit.event.Event
 import org.bukkit.event.Listener
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryCloseEvent
+import org.bukkit.plugin.Plugin
 import org.bukkit.scheduler.BukkitTask
 import xyz.r2turntrue.ieact.IeactComponent
 import xyz.r2turntrue.ieact.testPlugin
 import java.util.*
 
 internal val registeredListeners = ArrayListMultimap.create<Class<out IeactComponent<*, *>>, Triple<UUID, Class<out Event>, Listener>>()
-internal val plugin = if(System.getProperty("UNIT_TEST") == "1") testPlugin else Downstream.pullPlugin()
+internal var plugin: Plugin? = if(System.getProperty("UNIT_TEST") == "1") testPlugin else Downstream.pullPlugin()
 
 fun <P> Player.renderComponent(clazz: Class<out IeactComponent<*, *>>, props: P? = null) {
     val component = clazz.constructors[0].newInstance(props, this) as IeactComponent<*, *>
@@ -33,7 +34,7 @@ fun <P> Player.renderComponent(clazz: Class<out IeactComponent<*, *>>, props: P?
         this.openInventory(renderedInventory)
     }
     renderInventory()
-    renderTask = Bukkit.getScheduler().runTaskTimer(plugin, Runnable {
+    renderTask = Bukkit.getScheduler().runTaskTimer(plugin!!, Runnable {
         if(component.closed) {
             Bukkit.getScheduler().cancelTask(renderTask.taskId)
             return@Runnable
@@ -52,7 +53,9 @@ fun <P> Player.renderComponent(clazz: Class<out IeactComponent<*, *>>, props: P?
         }
     }))
     registeredListeners.put(clazz, Triple(this.uniqueId, InventoryCloseEvent::class.java, listener(InventoryCloseEvent::class.java) { event ->
+        println("IfStage1")
         if(component.player.uniqueId == event.view.player.uniqueId) {
+            println("IfOk")
             component.onClose()
             registeredListeners.values().removeIf { listenerTriple -> listenerTriple.first == this.uniqueId }
         }

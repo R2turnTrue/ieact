@@ -10,7 +10,10 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.plugin.PluginDescriptionFile
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.plugin.java.JavaPluginLoader
+import xyz.r2turntrue.ieact.internal.plugin
+import xyz.r2turntrue.ieact.internal.registeredListeners
 import xyz.r2turntrue.ieact.internal.renderComponent
+import xyz.r2turntrue.ieact.internal.unregisterListener
 import java.io.File
 
 lateinit var testPlugin: MyPlugin
@@ -36,6 +39,15 @@ class MyPlugin : JavaPlugin, CommandExecutor {
                     player.sendMessage("TEST")
                 })
             }
+    }
+
+    // clean test
+    override fun onDisable() {
+        //plugin = null
+        registeredListeners.values().forEach { triple ->
+            unregisterListener(triple.second, triple.third)
+        }
+        registeredListeners.clear()
     }
 
     data class Test2ComponentState(var counter: Int)
