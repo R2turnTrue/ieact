@@ -37,7 +37,7 @@ class InventoryCreationTests {
         server.execute("test2", player)
         assert(player.openInventory.getItem(0)!!.type == Material.APPLE)
         server.scheduler.performOneTick()
-        assert(player.openInventory.getItem(0)!!.type == Material.GOLDEN_APPLE)
+        assert(player.openInventory.getItem(0)!!.type != Material.APPLE)
         player.openInventory.close()
     }
 

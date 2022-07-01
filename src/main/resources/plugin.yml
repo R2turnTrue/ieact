@@ -7,3 +7,6 @@ commands:
     description: test1
   test2:
     description: test2
+
+libraries:
+  - org.jetbrains.kotlin:kotlin-stdlib:1.6.10
