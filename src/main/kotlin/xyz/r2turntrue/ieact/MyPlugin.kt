@@ -29,12 +29,12 @@ class MyPlugin : JavaPlugin, CommandExecutor {
         getCommand("test2")?.setExecutor(this)
     }
 
-    class Test1Component(props: Any?, player: Player): IeactComponent<Any?, Any?>(props, player) {
+    class Test1Component(props: Any?, player: Player): IeactComponent<Any?, Any?>(9, Component.text("Hello, World!"), props, player) {
         val theStack = ItemStack(Material.APPLE)
         val theTitle = Component.text("Hello, World!")
 
         override fun render(): IeactRendered =
-            ieact(theTitle, 9) {
+            ieact {
                 item(x = 0, y = 0, stack = theStack, onClick = {
                     player.sendMessage("TEST")
                 })
@@ -52,15 +52,15 @@ class MyPlugin : JavaPlugin, CommandExecutor {
 
     data class Test2ComponentState(var counter: Int)
 
-    class Test2Component(props: Any?, player: Player): IeactComponent<Any?, Test2ComponentState>(props, player) {
+    class Test2Component(props: Any?, player: Player): IeactComponent<Any?, Test2ComponentState>(9, Component.text("Hello, World!"), props, player) {
         init {
             state = Test2ComponentState(0)
         }
 
         override fun render(): IeactRendered =
-            ieact(Component.text("Hello, World!"), 9) {
+            ieact {
                 state?.run {
-                    item(x = 0, y = 0, stack = ItemStack(if(counter >= 1) Material.GOLDEN_APPLE else Material.APPLE), onClick = {
+                    item(x = 0, y = 0, stack = ItemStack(if(counter >= 1) Material.values().filter { e -> e != Material.APPLE }.random() else Material.APPLE), onClick = {
                         player.sendMessage("TEST")
                     })
                     counter++
