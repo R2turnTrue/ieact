@@ -11,36 +11,36 @@ A react-like kotlin library to create an inventory ui easily
 
 ```kotlin
 // A component without state & props
-class Test1Component(props: Any?, player: Player): IeactComponent<Any?, Any?>(props, player) {
+class Test1Component(props: Any?, player: Player): IeactComponent<Any?, Any?>(9, Component.text("Hello, World!"), props, player) {
     val theStack = ItemStack(Material.APPLE)
-    val theTitle = Component.text("Hello, World!")
 
     override fun render(): IeactRendered =
-        ieact(theTitle, 9) {
-            item(x = 0, y = 0, stack = theStack) {
+        ieact {
+            item(x = 0, y = 0, stack = theStack, onClick = {
                 player.sendMessage("TEST")
-            }
+            })
         }
-    }
+}
 ```
 
 ```kotlin
 // A component with state
 data class Test2ComponentState(var counter: Int)
 
-class Test2Component(props: Any?, player: Player): IeactComponent<Any?, Test2ComponentState>(props, player) {
+class Test2Component(props: Any?, player: Player): IeactComponent<Any?, Test2ComponentState>(9, Component.text("Hello, World!"), props, player) {
     init {
         state = Test2ComponentState(0)
     }
 
     override fun render(): IeactRendered =
-        ieact(Component.text("Hello, World!"), 9) {
+        ieact {
             state?.run {
-                item(x = 0, y = 0, stack = ItemStack(if(counter >= 1) Material.GOLDEN_APPLE else Material.APPLE), onClick = {
+                item(x = 0, y = 0, stack = ItemStack(if(counter >= 1) Material.values().filter { e -> e != Material.APPLE }.random() else Material.APPLE), onClick = {
                     player.sendMessage("TEST")
                 })
                 counter++
             }
         }
+
 }
 ```
