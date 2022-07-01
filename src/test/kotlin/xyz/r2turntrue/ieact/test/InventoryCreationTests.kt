@@ -2,7 +2,6 @@ package xyz.r2turntrue.ieact.test
 
 import be.seeseemelk.mockbukkit.MockBukkit
 import be.seeseemelk.mockbukkit.ServerMock
-import net.kyori.adventure.text.Component
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import xyz.r2turntrue.ieact.MyPlugin
