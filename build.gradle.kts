@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm") version "1.6.10"
+    id("org.jetbrains.dokka") version "1.6.10"
     `maven-publish`
     signing
 }
@@ -32,6 +33,16 @@ tasks {
         from(sourceSets["main"].allSource)
     }
 
+    javadoc {
+        options.encoding = "UTF-8"
+    }
+
+    create<Jar>("javadocJar") {
+        archiveClassifier.set("javadoc")
+        dependsOn("dokkaHtml")
+        from("$buildDir/dokka/html")
+    }
+
     artifacts {
         archives(sourcesJar)
         archives(jar)
@@ -43,6 +54,7 @@ publishing {
         create<MavenPublication>(rootProject.name) {
             from(components["java"])
             artifact(tasks["sourcesJar"])
+            artifact(tasks["javadocJar"])
 
             repositories {
                 maven {
