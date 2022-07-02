@@ -7,6 +7,29 @@
 A react-like kotlin library to create an inventory ui easily
 </div>
 
+## Use
+
+```kotlin
+// build.gradle.kts
+repositories {
+    // ...
+    mavenCentral()
+    // ...
+}
+
+dependencies {
+    // ...
+    implementation("xyz.r2turntrue:ieact:0.0.1") // !! DO NOT SHADE THIS LIBRARY
+    // ...
+}
+```
+
+```yaml
+# plugin.yml
+libraries:
+  - xyz.r2turntrue:ieact:0.0.1
+```
+
 ## Example Component
 
 ```kotlin
