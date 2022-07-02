@@ -12,6 +12,6 @@ abstract class IeactComponent<P, S>(val size: Int, val title: Component, protect
 
     abstract fun render(): IeactRendered
 
-    fun onClose() {}
+    open fun onClose() {}
 
 }
