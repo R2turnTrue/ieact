@@ -56,13 +56,10 @@ fun <P> Player.renderComponent(clazz: Class<out IeactComponent<*, *>>, props: P?
         }
     }))
     registeredListeners.put(clazz, Triple(this.uniqueId, InventoryCloseEvent::class.java, listener(InventoryCloseEvent::class.java) { event ->
-        println("IfStage1")
         if(component.player.uniqueId == event.view.player.uniqueId) {
-            println("IfOk")
             component.onClose()
             registeredListeners.values().filter { listenerTriple -> listenerTriple.first == this.uniqueId }
                 .forEach { listenerTriple ->
-                    println("Unregistered listener")
                     unregisterListener(listenerTriple.second, listenerTriple.third)
                 }
             registeredListeners.values().removeIf { listenerTriple -> listenerTriple.first == this.uniqueId }
