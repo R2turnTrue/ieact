@@ -1,12 +1,12 @@
 plugins {
-    kotlin("jvm") version "1.6.10"
-    id("org.jetbrains.dokka") version "1.6.10"
+    kotlin("jvm") version "1.9.22"
+    id("org.jetbrains.dokka") version "1.9.10"
     `maven-publish`
     signing
 }
 
 group = "xyz.r2turntrue"
-version = "1.0-SNAPSHOT"
+version = "1.1-SNAPSHOT"
 
 repositories {
     mavenCentral()
@@ -14,10 +14,10 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.18.2-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT")
     implementation(kotlin("stdlib"))
 
-    testImplementation("com.github.seeseemelk:MockBukkit-v1.18:2.27.0")
+    testImplementation("com.github.seeseemelk:MockBukkit-v1.20:3.9.0")
     testImplementation(kotlin("test"))
 }
 

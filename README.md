@@ -19,7 +19,7 @@ repositories {
 
 dependencies {
     // ...
-    implementation("xyz.r2turntrue:ieact:0.0.1") // !! DO NOT SHADE THIS LIBRARY
+    implementation("xyz.r2turntrue:ieact:0.0.3") // !! DO NOT SHADE THIS LIBRARY
     // ...
 }
 ```
@@ -27,7 +27,7 @@ dependencies {
 ```yaml
 # plugin.yml
 libraries:
-  - xyz.r2turntrue:ieact:0.0.1
+  - xyz.r2turntrue:ieact:0.0.3
 ```
 
 ## Example Component

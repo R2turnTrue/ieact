@@ -9,7 +9,7 @@ class IeactRenderedBuilder() {
     private val items = HashMap<Int, Triple<ItemStack, Boolean, () -> Unit>>()
 
     fun item(x: Int = 0, y: Int = 0, stack: ItemStack? = null, clickCancelled: Boolean = true, onClick: () -> Unit = {}) {
-        items[x * y] = Triple(stack!!, clickCancelled, onClick)
+        items[x + y * 9] = Triple(stack!!, clickCancelled, onClick)
     }
 
     internal fun build(): IeactRendered =
